@@ -1,0 +1,46 @@
+# CCC '14 S2 - Assigning Partners
+# To check whether partners are consistent or inconsistent
+
+# Function to find position of a string in a list
+def find_pos(x, list1):
+    m = 0
+    while m < len(list1):
+        if list1[m] == x:
+            return m
+        m = m + 1
+
+
+n = int(input())
+# default output is set to good
+output = "good"
+
+# ALl cases with odd number of names will result in inconsistent pairing because someone will be their own partner
+if n % 2 != 0:
+    output = "bad"
+    # terminate the program
+else:
+    task1 = input().split(" ")
+    task2 = input().split(" ")
+    # print("Task 1 ", task1)
+    # print("Task 2 ", task2)
+
+    i = 0
+    while i < (n/2):
+        partner1 = task1[0]
+        partner2 = task2[0]
+        temp = find_pos(partner2, task1)
+        # If the two match, and the partner isn't themselves, the output is good
+        if task2[temp] == partner1 and task2[temp] != partner2:
+            # remove the names that have already been compared to make the code more efficient
+            task1.pop(0)
+            task2.pop(0)
+            task1.pop(temp-1)
+            task2.pop(temp-1)
+
+        else:
+            output = "bad"
+            break
+
+        i = i + 1
+
+print(output)
